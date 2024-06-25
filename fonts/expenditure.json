@@ -1,0 +1,51 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1427",
+      "name": "公交",
+      "font_class": "gongjiao",
+      "unicode": "f01f2",
+      "unicode_decimal": 983538
+    },
+    {
+      "icon_id": "2029536",
+      "name": "学习",
+      "font_class": "xuexi",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "2076324",
+      "name": "餐饮",
+      "font_class": "canyin",
+      "unicode": "e8a4",
+      "unicode_decimal": 59556
+    },
+    {
+      "icon_id": "7791035",
+      "name": "娱乐",
+      "font_class": "yule",
+      "unicode": "e7f1",
+      "unicode_decimal": 59377
+    },
+    {
+      "icon_id": "12986799",
+      "name": "日用品",
+      "font_class": "riyongpin",
+      "unicode": "e724",
+      "unicode_decimal": 59172
+    },
+    {
+      "icon_id": "17866178",
+      "name": "心-恋爱",
+      "font_class": "xin-lianai",
+      "unicode": "e727",
+      "unicode_decimal": 59175
+    }
+  ]
+}

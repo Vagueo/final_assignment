@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "736509",
+      "name": "投资",
+      "font_class": "touzi",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "10069706",
+      "name": "工资条",
+      "font_class": "gongzitiao",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "34791771",
+      "name": "其他收入",
+      "font_class": "qitashouru",
+      "unicode": "e6ee",
+      "unicode_decimal": 59118
+    }
+  ]
+}

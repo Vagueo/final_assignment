@@ -1,0 +1,16 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4360980",
+      "name": "明细",
+      "font_class": "mingxi",
+      "unicode": "e56b",
+      "unicode_decimal": 58731
+    }
+  ]
+}
