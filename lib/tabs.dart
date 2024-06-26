@@ -1,8 +1,13 @@
-import './pages/News.dart';
+import 'package:final_exam/pages/expenditure.dart';
+import 'package:final_exam/pages/income.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'icon_fonts.dart';
+import './pages/News.dart';
 import './pages/detail.dart';
 import './pages/accounting.dart';
+
 
 class Tabs extends StatefulWidget {
   const Tabs({super.key});
@@ -13,10 +18,42 @@ class Tabs extends StatefulWidget {
 
 class TabsState extends State<Tabs> {
   int currentIndex = 0;
-  final List<Widget> _pages = const [
-    DetailPage(),
-    NewsPage(),
-  ];
+  
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  // 从shared_preferences加载数据
+  void _loadData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? accountEntriesData = prefs.getString('accountEntries');
+    final String? tabsIndexEntriesData = prefs.getString('tabsIndexEntries');
+    final String? indexEntriesData = prefs.getString('indexEntries');
+
+
+    if (accountEntriesData != null) {
+      setState(() {
+        DetailPageState.accountEntries = (json.decode(accountEntriesData) as List)
+            .map((item) => AccountEntry.fromJson(item))
+            .toList();
+      });
+    }
+    if (tabsIndexEntriesData != null) {
+      setState(() {
+        DetailPageState.tabsIndexEntries = List<int>.from(json.decode(tabsIndexEntriesData));
+      });
+    }
+
+    if (indexEntriesData != null) {
+      setState(() {
+        DetailPageState.indexEntries = List<int>.from(json.decode(indexEntriesData));
+      });
+    }
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +69,26 @@ class TabsState extends State<Tabs> {
         backgroundColor:const Color.fromARGB(245, 124, 228, 136),
         centerTitle: true, // 文字居中
       ),
-      body: _pages[currentIndex],
+      body: IndexedStack(
+        index: currentIndex,
+        children: [
+          ListView.builder(
+            itemCount: DetailPageState.accountEntries.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(DetailPageState.accountEntries[index].date),
+                subtitle: Row(
+                  children: [
+                    Icon((DetailPageState.tabsIndexEntries[index] == 0 ? ExpenditureState.buttonData:IncomeState.buttonData)[DetailPageState.indexEntries[index]]['icon'], size: 25, color: const Color.fromARGB(253, 159, 147, 147)),
+                    Text('${(DetailPageState.tabsIndexEntries[index] == 0 ? "支出":"收入")}: ${(DetailPageState.tabsIndexEntries[index] == 0 ? "-":"+")}${DetailPageState.accountEntries[index].amount}\t   ${DetailPageState.accountEntries[index].note}'),
+                  ],
+                )
+              );
+            },
+          ),
+          const NewsPage(), // Add other pages as needed
+        ],
+      ),
       // 设置悬浮的按钮“记账”
       floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
       floatingActionButton: FloatingActionButton(

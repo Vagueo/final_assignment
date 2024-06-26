@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 import './calculator.dart';
 import 'package:flutter/material.dart';
 import './expenditure.dart';
@@ -83,6 +87,7 @@ class Buttons extends StatefulWidget {
 class ButtonsState extends State<Buttons> {
   int index = 0;
   int currentIndex = 0;
+  
   void addEntry(String date, String note, double amount) {
     setState(() {
       DetailPageState.accountEntries.add(AccountEntry(date, note, amount));
@@ -90,7 +95,16 @@ class ButtonsState extends State<Buttons> {
       DetailPageState.tabsIndexEntries.add(index);
       currentIndex = AccountPageState.selectedTabIndex == 0 ? ExpenditureState.currentIndex:IncomeState.currentIndex;
       DetailPageState.indexEntries.add(currentIndex);
+      _saveData();
     });
+  }
+
+  // 将数据保存到shared_preferences
+  void _saveData() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('accountEntries', json.encode(DetailPageState.accountEntries.map((entry) => entry.toJson()).toList()));
+    prefs.setString('tabsIndexEntries', json.encode(DetailPageState.tabsIndexEntries));
+    prefs.setString('indexEntries', json.encode(DetailPageState.indexEntries));
   }
 
   @override

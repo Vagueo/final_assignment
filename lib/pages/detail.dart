@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:final_exam/pages/accounting.dart';
 import 'package:final_exam/pages/expenditure.dart';
 import 'package:final_exam/pages/income.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class DetailPage extends StatefulWidget {
@@ -47,5 +50,21 @@ class AccountEntry {
   final double amount;
   
   AccountEntry(this.date, this.note, this.amount);
+
+  // 将AccountEntry对象转换为Map对象，以便将其转换为JSON字符串
+  Map<String, dynamic> toJson() => {
+    'date': date,
+    'note': note,
+    'amount': amount,
+  };
+
+  // 从Map对象创建AccountEntry对象
+  factory AccountEntry.fromJson(Map<String, dynamic> json) {
+    return AccountEntry(
+      json['date'],
+      json['note'],
+      json['amount'],
+    );
+  }
 }
 
